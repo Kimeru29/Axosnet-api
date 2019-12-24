@@ -3,7 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-public class AccountsController
+[Route("api/[controller]")]
+public class AccountsController : Controller
 {
   private readonly UserManager<AppUser> _userManager;
   private readonly IMapper _mapper;
