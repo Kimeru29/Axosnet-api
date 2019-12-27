@@ -1,11 +1,15 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class AxosContext : DbContext
 {
-  public DbSet<User> FreeUsers { get; set; }
+  public DbSet<Usuario> Usuarios { get; set; }
+  public DbSet<Provedor> Provedores { get; set; }
+  public DbSet<MetodoPago> MetodoPago { get; set; }
+  public DbSet<Recibo> Recibos { get; set; }
 
-  public AxosContext(DbContextOptions<AxosContext> options)
+  public AxosContext(DbContextOptions options)
    : base(options)
   {
   }
@@ -21,15 +25,23 @@ public class AxosContext : DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    //TODO: Método Seed.
     //TODO: Configurar en archivos separados, agregar non-c indexes.
+    modelBuilder.Entity<Usuario>()
+      .ToTable("Usuarios");
+    modelBuilder.Entity<MetodoPago>()
+      .ToTable("MetodosPago");
+    modelBuilder.Entity<Provedor>()
+      .ToTable("Provedores");
+    modelBuilder.Entity<Recibo>()
+      .ToTable("Recibos");
 
-    // modelBuilder.Entity<AppUser>().ToTable("AppUsers", "test");
-    // modelBuilder.Entity<AppUser>(entity =>
-    // {
-    //   entity.HasKey(e => e.Id);
-    //   entity.HasIndex(e => e.Nombre).IsUnique();    
-    // });
+    modelBuilder.Entity<Usuario>()
+      .Property(u => u.Genero)
+      .HasConversion<int>();
 
+    // modelBuilder.Entity<Recibo>()
+    //   .HasIndex(r => r.)
     base.OnModelCreating(modelBuilder);
   }
 }
