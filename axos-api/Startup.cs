@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,14 +31,28 @@ namespace axos_api
 
       services.AddAutoMapper(typeof(Startup));
 
+      // services.AddCors(o => o.AddPolicy("MuereCors", builder =>
+      //   {
+      //     builder.AllowAnyOrigin()
+      //            .AllowAnyMethod()
+      //            .AllowAnyHeader();
+      //   }));
+
       services.AddCors(options =>
-            {
-              options.AddPolicy("AllowAll",
-                  p => p.AllowAnyOrigin().
-                      AllowAnyHeader().
-                      AllowAnyMethod()
-              );
-            });
+    {
+      options.AddPolicy("MuereCors",
+      builder =>
+      {
+        builder.AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+      });
+    });
+
+      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+
+
 
 
       // var builder = services.AddIdentityCore<AppUser>(o =>
@@ -60,6 +75,11 @@ namespace axos_api
         app.UseDeveloperExceptionPage();
       }
 
+      app.UseCors(
+        options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()
+    );
+
+
       app.UseHttpsRedirection();
 
       app.UseRouting();
@@ -70,6 +90,8 @@ namespace axos_api
       {
         endpoints.MapControllers();
       });
+
+
     }
   }
 }

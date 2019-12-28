@@ -10,7 +10,7 @@ public class Recibo
   public MetodoPago MétodoDePago { get; set; }
   public DateTime Fecha { get; set; }
   public string Comentario { get; set; }
-
+  public Divisa Divisa { get; set; }
   public Provedor Provedor { get; set; }
   public Usuario Usuario { get; set; }
 

@@ -9,7 +9,6 @@ public class Usuario
   public string Apellido { get; set; }
   public string Correo { get; set; }
   public string Password { get; set; }
-
-  public Genero Genero { get; set; }
+  public Genero Genero { get; set; } = 0;
   public virtual IEnumerable<Recibo> Recibos { get; set; }
 }
