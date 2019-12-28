@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +15,11 @@ public class CuentasController : ControllerBase
     _context = context;
   }
 
-  [HttpGet]
-  public string Get() => "Hola";
+  [HttpGet, Authorize]
+  public IEnumerable<string> Get()
+  {
+    return new string[] { "John Doe", "Jane Doe" };
+  }
 
   [HttpPost]
   // [EnableCors("MuereCors")]
