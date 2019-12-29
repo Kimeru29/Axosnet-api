@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -29,5 +30,8 @@ public class CuentasController : ControllerBase
     _context.SaveChanges();
     return usuario.Id;
   }
+
+  [HttpGet, Route("usuario")]
+  public Usuario GetUsuario(string correo) => _context.Set<Usuario>().Where(u => u.Correo == correo).FirstOrDefault();
 }
 

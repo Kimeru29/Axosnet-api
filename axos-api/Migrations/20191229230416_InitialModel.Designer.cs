@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace axos_api.Migrations
 {
     [DbContext(typeof(AxosContext))]
-    [Migration("20191228032115_AjusteRecibo")]
-    partial class AjusteRecibo
+    [Migration("20191229230416_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,17 +54,17 @@ namespace axos_api.Migrations
                     b.Property<string>("Comentario")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Divisa")
+                    b.Property<int>("DivisaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Fecha")
+                    b.Property<DateTime?>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MetodoDePago")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Monto")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("MétodoDePagoId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProvedorId")
                         .HasColumnType("INTEGER");
@@ -73,8 +73,6 @@ namespace axos_api.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MétodoDePagoId");
 
                     b.HasIndex("ProvedorId");
 
@@ -111,10 +109,6 @@ namespace axos_api.Migrations
 
             modelBuilder.Entity("Recibo", b =>
                 {
-                    b.HasOne("MetodoPago", "MétodoDePago")
-                        .WithMany()
-                        .HasForeignKey("MétodoDePagoId");
-
                     b.HasOne("Provedor", "Provedor")
                         .WithMany("Recibos")
                         .HasForeignKey("ProvedorId")

@@ -7,10 +7,10 @@ public class Recibo
   public int ProvedorId { get; set; }
   public int UsuarioId { get; set; }
   public decimal Monto { get; set; }
-  public MetodoPago MétodoDePago { get; set; }
-  public DateTime Fecha { get; set; }
+  public string MetodoDePago { get; set; }
+  public DateTime? Fecha { get; set; }
   public string Comentario { get; set; }
-  public Divisa Divisa { get; set; }
+  public int DivisaId { get; set; }
   public Provedor Provedor { get; set; }
   public Usuario Usuario { get; set; }
 

@@ -16,7 +16,7 @@ public class AxosContext : DbContext
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
-    optionsBuilder.UseSqlite("Filename=AxosDevEnv.db", options =>
+    optionsBuilder.UseSqlite("Filename=AxosQaEnvAzure.db", options =>
       options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName)
     );
 

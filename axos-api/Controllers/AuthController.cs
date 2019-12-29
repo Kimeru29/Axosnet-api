@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,14 +11,14 @@ using Microsoft.IdentityModel.Tokens;
 [ApiController]
 public class AuthController : ControllerBase
 {
-  // GET api/values
   [HttpPost, Route("login")]
   public IActionResult Login([FromBody]Usuario user)
   {
     if (user == null)
       return BadRequest();
 
-    if (user.Nombre == "p" && user.Password == "p")
+    //TODO: Chequeo real.
+    if (user.Correo == "p" && user.Password == "p")
     {
       var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@99"));
       var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -26,7 +27,7 @@ public class AuthController : ControllerBase
           issuer: "http://localhost:5000",
           audience: "http://localhost:5000",
           claims: new List<Claim>(),
-          expires: DateTime.Now.AddMinutes(5),
+          expires: DateTime.Now.AddDays(1),
           signingCredentials: signinCredentials
       );
 
